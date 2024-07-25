@@ -1,0 +1,90 @@
+site_name: Notentransparenz
+site_url: https://transparenz.hilberg.eu/
+theme:
+  name: material
+  language: de
+markdown_extensions:
+  - pymdownx.snippets
+  - mdx_math:
+      enable_dollar_delimiter: True
+plugins:
+  - macros
+  - search
+  - mike:
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: null
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      auto_caption: true
+      caption_position: bottom
+      background: white
+      shadow: true
+      manual: false
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+extra:
+  version:
+      provider: mike
+      default: latest
+  commit_hash: !ENV REPO_COMMIT
+  github_user: tna76874
+  github_repo: notentransparenz
+  build_doc_date: !ENV build_doc_date
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tna76874/notentransparenz
+      name: "tna76874"
+  urls:
+    docfile: files/tex/notentransparenz.pdf
+    markdown_transparenz: files/tex/notentransparenz
+    binder_base: https://mybinder.org/v2/gh/tna76874/notebooks-school/stable
+    nvo:
+      html: https://www.landesrecht-bw.de/bsbw/document/jlr-NotBildVBWrahmen
+      pdf: https://www.landesrecht-bw.de/jportal/recherche3doc/NotBildV_BW.pdf?json=%7B%22format%22%3A%22pdf%22%2C%22params%22%3A%7B%22fixedPart%22%3A%22true%22%7D%2C%22docPart%22%3A%22X%22%2C%22docId%22%3A%22jlr-NotBildVBWrahmen%22%2C%22portalId%22%3A%22bsbw%22%7D&_=%2FNotBildV_BW.pdf
+      local: files/resources/NVO_BW.pdf
+    bildungsplan:
+      mathe: https://www.bildungsplaene-bw.de/site/bildungsplan/bpExport/3221757/Lde/index.html?_page=0&requestMode=PDF&_finish=Erstellen
+      physik: https://www.bildungsplaene-bw.de/site/bildungsplan/bpExport/3260781/Lde/index.html?_page=0&requestMode=PDF&_finish=Erstellen
+      info: https://www.bildungsplaene-bw.de/site/bildungsplan/bpExport/5705621/Lde/index.html?_page=0&requestMode=PDF&_finish=Erstellen
+    operatoren:
+      mathe: https://www.bildungsplaene-bw.de/,Lde/LS/BP2016BW/ALLG/GYM/M/OP
+      physik: https://www.bildungsplaene-bw.de/,Lde/LS/BP2016BW/ALLG/GYM/PH/OP
+      info: https://www.bildungsplaene-bw.de/,Lde/LS/BP2016BW/ALLG/GYM/INF/OP
+    korrekturrichtlinien: https://km.baden-wuerttemberg.de/fileadmin/redaktion/m-km/intern/PDF/Dateien/Gymnasium/Dokumente_Abitur/Abitur_2025/Beurteilungs__und_Korrekturrichtlinienerlass_2025.pdf
+    scanner:
+      geniusscan:
+        name: Genius Scan
+        android: https://play.google.com/store/apps/details?id=com.thegrizzlylabs.geniusscan.free&hl=de&gl=DE
+        ios: https://apps.apple.com/us/app/scanner-app-genius-scan/id377672876
+      adobe:
+        name: Adobe Scan
+        android: https://play.google.com/store/apps/details?id=com.adobe.scan.android&hl=de&gl=DE
+        ios: https://apps.apple.com/de/app/adobe-scan-pdf-ocr-scanner/id1199564834
+      microsoft:
+        name: Microsoft Lens
+        android: https://play.google.com/store/apps/details?id=com.microsoft.office.officelens&hl=de&gl=DE
+        ios: https://apps.apple.com/de/app/microsoft-lens-pdf-scanner/id975925059   
+
+copyright: !ENV build_doc_date
+
+nav:
+  - Notentransparenz: index.md
+  - Korrekturzeichen: korrektur.md
+  - Verbesserungen: verbesserung.md
+  - digitale Abgabe: abgabe.md
+  - Anhang: python.md

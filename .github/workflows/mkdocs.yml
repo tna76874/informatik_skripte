@@ -1,0 +1,113 @@
+name: mkdocs
+on:
+  push:
+    branches:
+      - master
+      - main
+
+env:
+  PAGES_DOMAIN: s.hilberg.eu
+  GH_BRANCH: gh-pages
+  PAGES_REPO_PATH: 'pages'
+  TEX_REPO_PATH: 'tex'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          path: ${{ env.PAGES_REPO_PATH }}
+
+      - name: Checkout TEX Repo
+        uses: actions/checkout@v4
+        with:
+          path: ${{ env.TEX_REPO_PATH }}
+          github-server-url: ${{ secrets.GITEA_REPO_SKRIPTE_SERVER }}
+          repository: ${{ secrets.GITEA_REPO_SKRIPTE }}
+          ssh-user: ${{ secrets.GITEA_REPO_SKRIPTE_USER }}
+          persist-credentials: ${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}
+          submodules: true
+          ref: 'pipeline'
+
+  #     - name: Create temporary tex ./docs/files
+  #       run: |
+  #         ./generate_latex_metadata.sh
+  #       shell: bash
+
+      # - name: Compile Full LaTeX document
+      #   uses: xu-cheng/latex-action@v3
+      #   with:
+      #     root_file: skript.tex
+      #     working_directory: ${{ env.TEX_REPO_PATH }}/latex
+      #     args: '-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=skript'
+
+  #     - name: Generate Latex pipeline file
+  #       run: |
+  #         ./generate_latex_pipeline_doc.sh
+  #       shell: bash
+
+  #     - name: Compile Lite LaTeX document
+  #       uses: xu-cheng/latex-action@v3
+  #       with:
+  #         root_file: notentransparenz.tex
+  #         working_directory: ./docs/files/tex
+  #         args: '-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=nt'
+
+  #     - name: Configure Git Credentials
+  #       run: |
+  #         git config user.name github-actions[bot]
+  #         git config user.email 47271687+tna76874@users.noreply.github.com
+
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: 3.x
+  #     - run: |
+  #         echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+
+  #     - uses: actions/cache@v4
+  #       with:
+  #         key: mkdocs-material-${{ env.cache_id }}
+  #         path: .cache
+  #         restore-keys: |
+  #           mkdocs-material-
+  #     - run: |
+  #         pip install -r requirements_docs.txt
+  #     - run: |
+  #         bash deploy.sh -b ${GH_BRANCH}
+
+  # ensure-cname:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: Checkout-Code
+  #     uses: actions/checkout@v4
+  #     with:
+  #       ref: ${{env.GH_BRANCH}}
+  #       fetch-depth: 0
+
+  #   - name: Configure Git Credentials
+  #     run: |
+  #       git config user.name "github-actions[bot]"
+  #       git config user.email "47271687+tna76874@users.noreply.github.com"
+
+  #   - name: Check CNAME
+  #     run: |
+  #       if [ -f CNAME ]; then
+  #         if [ "$(cat CNAME)" != "${PAGES_DOMAIN}" ]; then
+  #           echo "${PAGES_DOMAIN}" > CNAME
+  #           git add CNAME
+  #           git commit -m "Update CNAME"
+  #           git push
+  #         fi
+  #       else
+  #         echo "${PAGES_DOMAIN}" > CNAME
+  #         git add CNAME
+  #           git commit -m "Add CNAME"
+  #         git push
+  #       fi
