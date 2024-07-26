@@ -18,10 +18,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          path: ${{ env.PAGES_REPO_PATH }}
+      # - name: Checkout Repo
+      #   uses: actions/checkout@v4
+      #   with:
+      #     path: ${{ env.PAGES_REPO_PATH }}
 
       - name: Checkout TEX Repo
         uses: actions/checkout@v4
