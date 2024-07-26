@@ -43,17 +43,24 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-  #     - name: Create temporary tex ./docs/files
-  #       run: |
-  #         ./generate_latex_metadata.sh
-  #       shell: bash
+      - name: "Generate templates"
+        working-directory: ${{ env.TEX_REPO_PATH }}
+        run: |
+          python main.py --render
 
-      # - name: Compile Full LaTeX document
-      #   uses: xu-cheng/latex-action@v3
-      #   with:
-      #     root_file: skript.tex
-      #     working_directory: ${{ env.TEX_REPO_PATH }}/latex
-      #     args: '-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=skript'
+
+      - name: Compile Full LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: skript.tex
+          working_directory: ${{ env.TEX_REPO_PATH }}/latex
+          args: '-pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=skript'
+
+      - name: Upload LaTeX artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-latex
+          path: ${{ env.TEX_REPO_PATH }}/latex/skript.pdf
 
   #     - name: Generate Latex pipeline file
   #       run: |
