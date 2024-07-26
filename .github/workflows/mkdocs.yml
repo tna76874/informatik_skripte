@@ -37,7 +37,6 @@ jobs:
 
           echo "TEX_VERSION=$(python main.py --version)" >> $GITHUB_ENV
 
-
       - name: Compile Full LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
@@ -98,8 +97,7 @@ jobs:
       - run: |
           pip install -r requirements_docs.txt
       - run: |
-          export TEX_VERSION=${{ env.TEX_VERSION }}
-          bash deploy.sh -b ${GH_BRANCH}
+          bash deploy.sh -b ${GH_BRANCH} -v $TEX_VERSION
 
   ensure-cname:
     needs: deploy

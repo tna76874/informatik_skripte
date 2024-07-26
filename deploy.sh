@@ -1,9 +1,13 @@
 #!/bin/bash
 
-while getopts ":b:" opt; do
+TEX_VERSION=""
+while getopts ":b:v:" opt; do
   case ${opt} in
     b )
       deploy_branch=$OPTARG
+      ;;
+    v )
+      TEX_VERSION=$OPTARG
       ;;
     \? )
       echo "Invalid option: -$OPTARG" >&2
