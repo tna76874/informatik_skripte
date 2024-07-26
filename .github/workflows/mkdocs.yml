@@ -37,6 +37,7 @@ jobs:
         run: |
           /usr/bin/git clone https://${{ secrets.GITEA_REPO_SKRIPTE_USER }}:${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}@${{ secrets.GITEA_REPO_SKRIPTE_SERVER }}/${{ secrets.GITEA_REPO_SKRIPTE }} ${{ env.TEX_REPO_PATH }}
           /usr/bin/git config --global --add safe.directory ${{ env.TEX_REPO_PATH }}
+          cd ${{ env.TEX_REPO_PATH }}
           /usr/bin/git checkout pipeline
 
       - name: "Install pip"
