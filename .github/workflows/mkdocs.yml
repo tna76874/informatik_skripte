@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tex_version: ${{ steps.tex-version.outputs.version }}
-      tex_commit: ${{ steps.tex-version.outputs.commit }}
+      tex_commit: ${{ steps.tex-commit.outputs.commit }}
     steps:
       - name: Checkout TEX Repo
         run: |
