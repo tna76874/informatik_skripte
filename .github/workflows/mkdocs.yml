@@ -40,10 +40,12 @@ jobs:
 
       - id: tex-version
         run: |
+          cd ${{ env.TEX_REPO_PATH }}
           echo "version=$(python main.py --version)" >> "$GITHUB_OUTPUT"
 
       - id: tex-commit
         run: |
+          cd ${{ env.TEX_REPO_PATH }}
           echo "commit=$(python main.py --commit)" >> "$GITHUB_OUTPUT"
 
       - name: Compile Full LaTeX document
