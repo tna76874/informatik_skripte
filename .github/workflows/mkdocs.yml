@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tex_version: ${{ steps.tex-version.outputs.version }}
-      commit: ${{ steps.tex-version.outputs.commit }}
+      tex_commit: ${{ steps.tex-version.outputs.commit }}
     steps:
       - name: Checkout TEX Repo
         run: |
@@ -38,12 +38,14 @@ jobs:
           sudo apt-get install pandoc -y
           python main.py --render --ref $GITHUB_SHA
 
-      - id: tex-version
+      - name: Set TEX-version
+        id: tex-version
         run: |
           cd ${{ env.TEX_REPO_PATH }}
           echo "version=$(python main.py --version)" >> "$GITHUB_OUTPUT"
 
-      - id: tex-commit
+      - name: Set TEX-commit
+        id: tex-commit
         run: |
           cd ${{ env.TEX_REPO_PATH }}
           echo "commit=$(python main.py --commit)" >> "$GITHUB_OUTPUT"
@@ -109,8 +111,9 @@ jobs:
           pip install -r requirements_docs.txt
       - env:
           TEX_VERSION: ${{needs.generate-latex.outputs.tex_version}}
+          TEX_COMMIT: ${{needs.generate-latex.outputs.tex_commit}}
         run: |
-          bash deploy.sh -b ${GH_BRANCH} -v ${TEX_VERSION}
+          bash deploy.sh -b ${GH_BRANCH} -v ${TEX_VERSION} -c ${TEX_COMMIT}
 
   ensure-cname:
     needs: deploy
