@@ -89,6 +89,7 @@ jobs:
       - run: |
           pip install -r requirements_docs.txt
       - run: |
+          export TEX_VERSION=${{ env.TEX_VERSION }}
           bash deploy.sh -b ${GH_BRANCH}
 
   ensure-cname:

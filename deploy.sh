@@ -12,7 +12,6 @@ while getopts ":b:" opt; do
 done
 
 deploy() {
-  [ -z "$TEX_VERSION" ] && TEX_VERSION="latest"
   if [ -n "$deploy_branch" ]; then
     mike deploy --branch ${deploy_branch} --update-aliases --push ${TEX_VERSION} ${REPO_COMMIT} latest || mike deploy --branch ${deploy_branch} --push ${TEX_VERSION} ${REPO_COMMIT} latest
     mike set-default --branch ${deploy_branch} --push latest
