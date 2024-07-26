@@ -51,6 +51,12 @@ jobs:
           name: compiled-latex
           path: ${{ env.TEX_REPO_PATH }}/latex/skript.pdf
 
+      - name: Upload LaTeX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-markdown
+          path: ${{ env.TEX_REPO_PATH }}/_temp
+
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,15 +65,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - run: |
-          mkdir -p ${{ github.workspace }}/docs/files
     
       - name: Download LaTeX artifact
         uses: actions/download-artifact@v4
         with:
           name: compiled-latex
-          path: ${{ github.workspace }}/docs/files/skript.pdf
+          path: ${{ github.workspace }}/docs/files
+
+      - name: Download Markdown artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-markdown
+          path: ${{ github.workspace }}/docs
 
       - name: Configure Git Credentials
         run: |

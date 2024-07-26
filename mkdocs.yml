@@ -1,4 +1,4 @@
-site_name: informatik_skripte
+site_name: Informatik Unterrichtsskript
 site_url: https://transparenz.hilberg.eu/
 theme:
   name: material
@@ -55,4 +55,5 @@ extra:
 copyright: !ENV build_doc_date
 
 nav:
-  - Home: index.md
+  - Skript: index.md
+  - Links: links.md
