@@ -46,7 +46,7 @@ jobs:
       - name: "Generate templates"
         working-directory: ${{ env.TEX_REPO_PATH }}
         run: |
-          apt-get install pandoc -y
+          sudo apt-get install pandoc -y
           python main.py --render
 
       - name: Compile Full LaTeX document
