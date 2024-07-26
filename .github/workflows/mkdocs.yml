@@ -70,9 +70,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: generate-latex
     steps:
-      - env:
-          TEX_VERSION: ${{needs.generate-latex.outputs.tex_version}}
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -108,7 +105,9 @@ jobs:
             mkdocs-material-
       - run: |
           pip install -r requirements_docs.txt
-      - run: |
+      - env:
+          TEX_VERSION: ${{needs.generate-latex.outputs.tex_version}}
+        run: |
           bash deploy.sh -b ${GH_BRANCH} -v ${TEX_VERSION}
 
   ensure-cname:
