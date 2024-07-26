@@ -24,14 +24,24 @@ jobs:
       #     path: ${{ env.PAGES_REPO_PATH }}
 
       - name: Checkout TEX Repo
-        run: |
-          /usr/bin/git clone https://${{ secrets.GITEA_REPO_SKRIPTE_USER }}:${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}@${{ secrets.GITEA_REPO_SKRIPTE_SERVER }}/${{ secrets.GITEA_REPO_SKRIPTE }} ${{ env.TEX_REPO_PATH }}
-          /usr/bin/git config --global --add safe.directory ${{ env.TEX_REPO_PATH }}
+        uses: actions/checkout@v4
+        with:
+          path: ${{ env.TEX_REPO_PATH }}
+          repository: ${{ secrets.GITEA_REPO_SKRIPTE }}
+          ssh-user: ${{ secrets.GITEA_REPO_SKRIPTE_USER }}
+          persist-credentials: ${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}
+          token: ${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}
+          ref: 'pipeline'
 
-      - name: "Install pip"
-        working-directory: ${{ env.TEX_REPO_PATH }}
-        run: |
-          pip install -r requirements.txt
+      # - name: Checkout TEX Repo
+      #   run: |
+      #     /usr/bin/git clone https://${{ secrets.GITEA_REPO_SKRIPTE_USER }}:${{ secrets.GITEA_REPO_SKRIPTE_TOKEN }}@${{ secrets.GITEA_REPO_SKRIPTE_SERVER }}/${{ secrets.GITEA_REPO_SKRIPTE }} ${{ env.TEX_REPO_PATH }}
+      #     /usr/bin/git config --global --add safe.directory ${{ env.TEX_REPO_PATH }}
+
+      # - name: "Install pip"
+      #   working-directory: ${{ env.TEX_REPO_PATH }}
+      #   run: |
+      #     pip install -r requirements.txt
 
   #     - name: Create temporary tex ./docs/files
   #       run: |
